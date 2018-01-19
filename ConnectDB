@@ -1,0 +1,173 @@
+package com.tamnt.day5;
+
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Scanner;
+
+public class ConnectDB {
+
+	static final String URL = "jdbc:sqlserver://localhost;databasename=javabasic";
+	static final String USER = "sa";
+	static final String PW = "Thanhtam96";
+
+	Connection con = null;
+	Statement stmt = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+
+	public Connection getConnect() {
+		try {
+			con = DriverManager.getConnection(URL, USER, PW);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return con;
+	}
+
+	public void updateCandidate() {
+		System.out.print("Nhập ID cần sửa: ");
+		String candidateID = new Scanner(System.in).nextLine();
+		try {
+			this.getConnect().setAutoCommit(false);
+			stmt = this.getConnect().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			rs = stmt.executeQuery("select * from candidate where candidateid ='" + candidateID + "'");
+			if (rs.next()) {
+				Scanner input = new Scanner(System.in);
+				System.out.print("input full name: ");
+				String fullName = new Scanner(System.in).nextLine();
+				System.out.print("input birthday: ");
+				Date birthday = Date.valueOf(new SimpleDateFormat("yyyy-MM-dd")
+						.format(new java.util.Date(new Scanner(System.in).nextLine())));
+				System.out.print("input phone: ");
+				String phone = new Scanner(System.in).nextLine();
+				System.out.print("input email: ");
+				String email = new Scanner(System.in).nextLine();
+				int candidateType = rs.getInt("candidateType");
+				rs.updateString("fullName", fullName);
+				rs.updateDate("birthday", birthday);
+				rs.updateString("phone", phone);
+				rs.updateString("email", email);
+				rs.updateRow();
+				if (candidateType == 0) {
+					System.out.print("input exp in year: ");
+					int expInYear = input.nextInt();
+					System.out.print("input pro skill: ");
+					String proSkill = input.nextLine();
+					rs = stmt.executeQuery("select * from experience where candidateid='" + candidateID + "'");
+					rs.next();
+					rs.updateInt("expInYear", expInYear);
+					rs.updateString("proSkill", proSkill);
+					rs.updateRow();
+				} else if (candidateType == 1) {
+					System.out.print("input graduation date: ");
+					Date graduationDate = Date.valueOf(new SimpleDateFormat("yyyy-MM-đ")
+							.format(new java.util.Date(new Scanner(System.in).nextLine())));
+					System.out.print("input graduation rank: ");
+					String graduationRank = new Scanner(System.in).nextLine();
+					System.out.print("input education: ");
+					String education = new Scanner(System.in).nextLine();
+					rs = stmt.executeQuery("select * from fresher where candidateid='" + candidateID + "'");
+					rs.next();
+					rs.updateDate("graduationDate", graduationDate);
+					rs.updateString("graduationRank", graduationRank);
+					rs.updateString("education", education);
+					rs.updateRow();
+				} else {
+					System.out.print("input majors: ");
+					String majors = new Scanner(System.in).nextLine();
+					System.out.print("input semester: ");
+					int semester = new Scanner(System.in).nextInt();
+					System.out.print("input university name: ");
+					String universityName = new Scanner(System.in).nextLine();
+					ResultSet rs = stmt.executeQuery("select * from intern where candidateid='" + candidateID + "'");
+					rs.next();
+					rs.updateString("majors", majors);
+					rs.updateInt("semester", semester);
+					rs.updateString("universityName", universityName);
+					rs.updateRow();
+				}
+				this.getConnect().commit();
+				this.getConnect().setAutoCommit(true);
+				System.out.println("Cập nhật thành công.");
+			} else {
+				System.out.println("Không tìm thấy ID cần sửa!");
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			try {
+				this.getConnect().rollback();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void addCandidate(Candidate candidate) {
+		try {
+			this.getConnect().setAutoCommit(false);
+			stmt = this.getConnect().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			rs = stmt.executeQuery("select * from candidate");
+			rs.moveToInsertRow();
+			rs.updateString("candidateID", candidate.candidateID);
+			rs.updateString("fullName", candidate.fullName);
+			rs.updateDate("birthday", candidate.birthday);
+			rs.updateString("phone", candidate.phone);
+			rs.updateString("email", candidate.email);
+			rs.updateInt("candidateType", candidate.candidateType);
+			rs.insertRow();
+			if (candidate.candidateType == 0) {
+				Intern intern = (Intern) candidate;
+				rs = stmt.executeQuery("select * from experience");
+				rs.moveToInsertRow();
+				rs.updateString("candidateID", intern.candidateID);
+				rs.updateString("majors", intern.getMajors());
+				rs.updateInt("semester", intern.getSemester());
+				rs.updateString("universityname", intern.getUniversity());
+				rs.insertRow();
+			} else if (candidate.candidateType == 1) {
+				Fresher fresher = (Fresher) candidate;
+				rs = stmt.executeQuery("select * from fresher");
+				rs.moveToInsertRow();
+				rs.updateString("candidateID", fresher.candidateID);
+				rs.updateDate("graduationDate", fresher.getGraduationDate());
+				rs.updateString("graduationRank", fresher.getGraduationRank());
+				rs.updateString("education", fresher.getEducation());
+				rs.insertRow();
+			} else {
+				Intern intern = (Intern) candidate;
+				rs = stmt.executeQuery("select * from intern");
+				rs.moveToInsertRow();
+				rs.updateString("candidateID", intern.candidateID);
+				rs.updateString("majors", intern.getMajors());
+				rs.updateInt("semester", intern.getSemester());
+				rs.updateString("universityname", intern.getUniversity());
+				rs.insertRow();
+			}
+			this.getConnect().commit();
+			System.out.println("Insert thành công.");
+			this.getConnect().setAutoCommit(true);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				this.getConnect().rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+	}
+
+	public static void main(String[] args) {
+		Intern intern = new Intern("TamNT", "Trần Thảo My aa", java.sql.Date.valueOf("1996-04-02"), "01674670610",
+				"t2dragon9x@gmail.com", "Kinh tế 37B", 2, "Đại học Quy Nhơn aaa");
+		ConnectDB connectDB = new ConnectDB();
+		// connectDB.updateCandidate(intern, "tamnt");
+		Intern intern1 = new Intern("TamNT", "Namikazeconcac", java.sql.Date.valueOf("1996-04-02"), "01674670610",
+				"t2dragon9x@gmail.com", "Kinh tế 37B", 2, "Đại học Quy Nhơn");
+		// connectDB.insertCandidate(intern1);
+		// connectDB.addCandidate(intern);
+		connectDB.updateCandidate();
+	}
+
+}
