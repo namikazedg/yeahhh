@@ -1,0 +1,30 @@
+package com.tamnt.day5;
+
+import java.sql.Date;
+
+public class Experience extends Candidate {
+	private int expInYear;
+	private String proSkill;
+
+	public Experience(String candidateID, String fullName, Date birthday, String phone, String email, int expInYear,
+			String proSkill) {
+		super(candidateID, fullName, birthday, phone, email);
+		this.expInYear = expInYear;
+		this.proSkill = proSkill;
+		this.candidateType = 0;
+	}
+	
+	public void showMe(){
+		super.showInfo();
+		System.out.println("\nExp in year:"+this.expInYear+"\nPro skill: "+this.proSkill);
+	}
+
+	public int getExpInYear() {
+		return expInYear;
+	}
+
+	public String getProSkill() {
+		return proSkill;
+	}
+	
+}
