@@ -1,0 +1,37 @@
+package com.tamnt.day5;
+
+import java.sql.Date;
+
+public class Fresher extends Candidate {
+	private Date graduationDate;
+	private String graduationRank;
+	private String education;
+
+	public Fresher(String candidateID, String fullName, Date birthday, String phone, String email, Date graduationDate,
+			String graduationRank, String education) {
+		super(candidateID, fullName, birthday, phone, email);
+		this.graduationDate = graduationDate;
+		this.graduationRank = graduationRank;
+		this.education = education;
+		this.candidateType = 1;
+	}
+
+	public void showMe() {
+		super.showInfo();
+		System.out.println("\nGraduation date: " + this.graduationDate + "\nGraduation rank: " + this.graduationRank
+				+ "\nEducation: " + this.education);
+	}
+
+	public Date getGraduationDate() {
+		return graduationDate;
+	}
+
+	public String getGraduationRank() {
+		return graduationRank;
+	}
+
+	public String getEducation() {
+		return education;
+	}
+
+}
