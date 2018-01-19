@@ -1,0 +1,50 @@
+public void listCandidate() {
+		Statement stmt1 = null;
+		ResultSet rs1 = null;
+		try {
+			stmt = getConnect().createStatement();
+			rs = stmt.executeQuery("select candidateType,candidateID from candidate");
+			while (rs.next()) {
+				int candidateType = rs.getInt("candidateType");
+				String candidateID = rs.getString("candidateID");
+				stmt1 = getConnect().createStatement();
+
+				if (candidateType == 2) {
+					rs1 = stmt1.executeQuery(
+							"select * from candidate join Intern on candidate.candidateID=Intern.candidateID where candidate.candidateid='"
+									+ candidateID + "'");
+					while (rs1.next()) {
+
+						System.out.println(rs1.getString(1) + "\t" + rs1.getString(2) + "\t" + rs1.getDate(3) + "\t"
+								+ rs1.getString(4) + "\t" + rs1.getString(5) + "\t" + rs1.getInt(6) + "\t"
+								+ rs1.getString(7) + "\t" + rs1.getInt(8) + "\t" + rs1.getString(9));
+					}
+				}
+				if (candidateType == 1) {
+					rs1 = stmt1.executeQuery(
+							"select * from candidate join Fresher on candidate.candidateID=Fresher.candidateID where candidate.candidateid='"
+									+ candidateID + "'");
+					while (rs1.next()) {
+
+						System.out.println(rs1.getString(1) + "\t" + rs1.getString(2) + "\t" + rs1.getDate(3) + "\t"
+								+ rs1.getString(4) + "\t" + rs1.getString(5) + "\t" + rs1.getInt(6) + "\t"
+								+ rs1.getDate(8) + "\t" + rs1.getString(9) + "\t" + rs1.getString(10));
+					}
+				}
+				if (candidateType == 0) {
+					rs1 = stmt1.executeQuery(
+							"select * from candidate join Experience on candidate.candidateID=Experience.candidateID where candidate.candidateid='"
+									+ candidateID + "'");
+					while (rs1.next()) {
+
+						System.out.println(rs1.getString(1) + "\t" + rs1.getString(2) + "\t" + rs1.getDate(3) + "\t"
+								+ rs1.getString(4) + "\t" + rs1.getString(5) + "\t" + rs1.getInt(6) + "\t"
+								+ rs1.getString(7) + "\t" + rs1.getInt(8) + "\t" + rs1.getString(9) + "\t");
+					}
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
