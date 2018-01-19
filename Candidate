@@ -1,0 +1,36 @@
+package com.tamnt.day5;
+
+import java.sql.Date;
+import java.util.ArrayList;
+
+public class Candidate {
+	protected String candidateID;
+	protected String fullName;
+	protected Date birthday;
+	protected String phone;
+	protected String email;
+	protected int candidateType;
+	protected static int candidateCount;
+	protected ArrayList<Certificate> arrCertificate;
+
+	public Candidate(String candidateID, String fullName, Date birthday, String phone, String email) {
+		super();
+		this.candidateID = candidateID;
+		this.fullName = fullName;
+		this.birthday = birthday;
+		this.phone = phone;
+		this.email = email;
+		this.candidateCount++;
+		this.arrCertificate = new ArrayList<>();
+	}
+
+	public void showInfo() {
+		System.out.println("Candidate ID: " + this.candidateID + "\nFull name: " + this.fullName + "\nBirthday: "
+				+ this.birthday + "\nPhone: " + this.phone + "\nEmail: " + this.email);
+	}
+
+	public void addCertificate(Certificate certificate) {
+		this.arrCertificate.add(certificate);
+	}
+
+}
