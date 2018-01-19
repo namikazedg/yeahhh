@@ -1,0 +1,42 @@
+package a;
+
+import java.sql.*;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+public class A {
+
+	public static void main(String[] args) throws ClassNotFoundException {
+		// TODO Auto-generated method stub
+		java.sql.Date date = java.sql.Date.valueOf(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+		System.out.println(date);
+		ArrayList<String>arr;
+		try {
+			Connection con =DriverManager.getConnection("jdbc:sqlserver://localhost;databasename=dg;user=sa;password=Thanhtam96");
+			if(con!=null){
+				System.out.println("ngon");
+			}
+			C c = new C(java.sql.Date.valueOf(new SimpleDateFormat("yyyy-MM-dd").format(new Date("04/02/1996"))), "thanh tam");
+			String sql1=" insert into sinhvien values('"+c.name+"','"+c.date+"')";
+			String sql3 =" update sinhvien set name='namikaze' where name=?";
+			String sql4 =" update sinhvien set name='umibozo' where name=?";
+			String sql2 =" select * from sinhvien";
+			PreparedStatement p = con.prepareStatement(sql3 +sql4);
+			p.setString(1, "thanh tam");
+			p.setString(2, "thaomy");
+			p.execute();
+//			ResultSet rs = p.executeQuery();
+//			while(rs.next()){
+//				System.out.println(rs.getDate("date")+" - "+rs.getString("name"));
+//			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+}
