@@ -1,0 +1,25 @@
+package com.tamnt.day6;
+
+import java.util.Date;
+
+public class Certificate {
+
+	private String certificateID;
+	private String certificateName;
+	private String certificateRank;
+	private Date certificateDate;
+	public Certificate(String certificateID, String certificateName,
+			String certificateRank, Date certificateDate) {
+		super();
+		this.certificateID = certificateID;
+		this.certificateName = certificateName;
+		this.certificateRank = certificateRank;
+		this.certificateDate = certificateDate;
+	}
+	public String toString(){
+		return "Certificate ID: " + this.certificateID
+		+ "\nCertificate Name: " + this.certificateName
+		+ "\nCertificate Rank: " + this.certificateRank
+		+ "\nCertificate Date: " + this.certificateDate;
+	}
+}
