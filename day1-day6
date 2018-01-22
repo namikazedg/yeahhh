@@ -1,0 +1,163 @@
+FRESHER ACADEMY
+Java Basic Assignment
+Day 1- Day 6
+
+
+•	Assignment Day 1:
+
+
+
+
+
+
+
+
+
+
+
+
+1.	Viết chương trình in ra các dấu * theo cấu trúc như sau (cho n là chiều cao của tháp tam giác, cần in ra n dòng):
+Ví dụ : n = 6
+*
+**
+***
+****
+*****
+******
+
+
+2.	Viết chương trình tính :
+S=1+1/2+1/3+....+1/n
+Số n được nhập từ bàn phím
+3.	Viết chương trình tính  :
+S = 1+1/3!+1/5!+…..+1/(2n-1)!
+Số n được nhập từ bàn phím
+4.	Tính tổng và tích các chữ số của một số m, m được nhập từ bàn phím
+(Ví dụ : m = 234 => S = 2 + 3 + 4 = 9, P = 2 * 3 * 4 = 24)
+5.	Nhập 2 số nguyên dương a và b. Sau đó in ra ước số chung lớn nhất và bội số chung nhỏ nhất của 2 số nguyên dương a và b đó.
+
+6.	Viết chương nhập vào một số nguyên dương n. Sau đó quy đổi n ra hệ nhị phân.
+
+7.	Nhập vào một String S,  thực hiện công việc sau:
+a.	In ra màn hình String đảo ngược của S
+b.	Đổi toàn bộ kí tự của S sang chữ Hoa
+c.	Đổi toàn bộ kí tự của S sang chữ thường
+d.	Đưa ra bảng tần số xuất hiện của các kí tự trong S
+e.	Trích ra chuỗi con của từ kí tự thứ n đến thứ m của S (n, m nhập từ bàn phím)
+
+8.	Viết chương trình thực hiện các công việc như sau :
+a.	Nhập một mảng a gồm n phần tử kiểu nguyên int
+b.	Tính tổng số dương lẻ của mảng a
+c.	Nhập vào phần tử k, tìm xem k có xuất hiện trong mảng a không. Nếu có chỉ ra các vị trí của k trong mảng.
+d.	Sắp sếp mảng a theo thứ tự tăng dần.
+e.	Chèn một số p vào mảng a sao cho mảng a vẫn đảm bảo tăng dần.
+
+9.	Viết chương trình thực hiện công việc sau:
+a.	Nhập ma trận A (m dòng, n cột) gồm các phần tử kiểu int
+b.	Tính tích các số là bội số của 3 nằm trên dòng đầu tiên của ma trận 
+c.	Tạo ra mảng một chiều X với X[i] là các giá trị lớn nhất trên từng dòng i của ma trận A.
+
+10.	Viết chương trình đọc một file đầu vào có định dạng *.csv:
+Nội dung của file csv lưu thông tin của một nhóm sinh viên, bao gồm các thông tin sau: StdNo, StdName, StdPhone, StdEmail, GradePoint.
+Ví dụ file đầu vào STD.csv:
+
+ 
+
+a.	Hãy viết function đọc file csv, sau đó hiển thị toàn bộ thông tin của các sinh viên lên màn hình console.
+b.	Viết hàm kiểm tra dữ liệu của file csv, nếu sai định dạng phone hoặc email thì thông báo lỗi ra file error.txt.
+
+Ví dụ file error.txt:
+ 
+
+11.	Làm một ví dụ để phân biệt khái niệm by pass value và by pass refference
+
+12.	Học viên hãy giải thích khác nhau giữa Comments và JavaDoc, hãy thực hiện ví dụ trên code mà học viên đã viết
+
+*** End of Day 1 ***
+
+
+
+
+•	Assignment Day 2 – Day 6.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Học viên hãy xây dựng ứng dụng  như sau:
+A.	Mô tả nghiệp vụ:
+Phần mềm quản lý ứng viên của bộ phận tuyển dụng của FPT software được mô tả nghiệp vụ như sau:
+Ứng viên  (Candidate)  khi nộp hồ sơ vào công ty được phần mềm phân thành 3 loại như sau: Ứng viên có kinh nghiệm (Experience), Ứng viên mới tốt nghiệp (Fresher) , Sinh viên thực tập (Intern)
+	Tất cả các Candidate đều có các thuộc tính là: CandidateID, FullName, BirthDay,Phone, Email, Candidate_type, Canidate_count và phương thức là ShowInfo để hiển thị thông tin của ứng viên đó (hiển thị thông tin ứng viên  ra màn hình console).
+		Trong đó :
+* Candidate_type có giá trị tương ứng là 0: Experience, 1: Fresher , 2: Intern  (tùy vào người dùng nhập vào ứng viên loại nào)
+		* Candidate_count dùng để người dùng đếm số lượng candidate trong một đợt người dùng nhập mới ứng viên vào cơ sở dữ liệu. (mỗi lần người dùng nhập thêm mới ứng viên thì thuộc tính Candidate_count của class Candidate sẽ tăng lên 1)
+Ngoài ra :
+	Đối với ứng viên Experience có thêm thuộc tính: Số năm kinh nghiệm (ExpInYear), Kỹ năng chuyên môn (ProSkill)
+	Đối với ứng viên Fresher có thêm thuộc tính: Thời gian tốt nghiệp(Graduation_date), Xếp loại tốt nghiệp (Graduation_rank) , Trường tốt nghiệp (Education)
+	Đối với ứng viên Intern có thêm thuộc tính: Chuyên ngành đang học (Majors), Học kì đang học (Semester), Tên trường đang học (University_name)
+Lưu ý: Tùy mỗi loại ứng viên, phương thức showMe sẽ được bổ sung thêm các thuộc tính của riêng loại ứng viên đó.
+** Ngoài ra mỗi ứng viên khi tham gia ứng tuyển cần phải nộp bằng cấp nghề nghiệp đi kèm, bộ phận tuyển dụng cần quản lý các bằng cấp này. Một ứng viên có thể có nhiều bằng cấp.
+Mỗi bằng cấp có các thông tin bao gồm : CertificatedID, CertificateName, CertificateRank, CertificatedDate.
+
+
+
+B. Yêu cầu của Học viên:
+I. Yêu cầu 1 (Day 2, Day 3):
+	1. Học viên hãy thiết kế và viết code của chương trình trên làm sao để tuân thủ theo đúng mô hình OOP đã học, áp dụng đầy đủ 4 tính chất : bao đóng (encapsulation) , kế thừa (inheritance) , đa hình (polymorphism) , trừu tượng (abstraction).
+	2. Xác định và viết code constructor cho tất cả các class.
+	3. Xác định và viết code cho các abstract method, abstract class, override/overload method, static field.
+	4. Xác định Is A, Has A relationship trong phần thiết kế code đã viết ở trên.
+	5. Sử dụng và giải thích được ý nghĩa của 2 keyword: super, this trong phần thiết kế code ở trên.
+	6. Học viên hãy giải thích ý nghĩa của toán tử instanceof, hãy ứng dụng instanceof để downcasting 1 object Candidate trở thành các object Experience, Fresher hoặc intern trong các yêu cầu 2, yêu cầu 3, yêu cầu 4 bên dưới ( yêu cầu này học viên có thể thực hiện trong các Day 4,5,6)
+II. Yêu cầu 2 (Day 4, Day 5): 
+1.	Học viên hãy viết chương trình cho phép nhập thông tin cho các ứng viên, các thông tin này được lưu vào DataBase (Học viên tự thiết kế DataBase). 
+2.	 Sau khi nhập xong các ứng viên vào DataBase, hãy hiển thị số lượng ứng viên vừa được người dùng nhập vào (chú ý: hãy sử dụng thuộc tính Candidate_count mô tả ở trên, lưu ý thuộc tính này không cần lưu trữ ở DataBase). 
+3.	Yêu cầu chương trình phải kiểm tra được hợp lệ của các thuộc tính: BirthDay, Email trước khi nhập vào DataBase. 
+Trong đó Birthday là hợp lệ nếu nằm trong khoảng 1900... năm hiện tại.
+	    Yêu cầu bắt buộc: Học viên hãy tạo mới 2 User exception là : BirthDayException và EmailException để throw ra màn hình trong trường hợp dữ liệu của một trong hai không hợp lệ (nội dung lỗi do thi sinh tự quyết định). Ngoài ra, nếu có bất cứ một exception nào khác trong quá trình nhập liệu Học viên phải catch được và thông báo nội dung lỗi ra màn hình như sau: "The system has encountered an unexpected problem, sincerely sorry !!!”
+
+4.	Học viên hãy phân biệt giống và khác nhau giữa String và StringBuffer. Hãy ứng dụng đặc tính của String và StringBuffer để tổng hợp hợp các FullName của tất cả các Candidate (ngăn cách giữa các tên là một dấu “,”)  và hiển thị ra màn hình.
+5.	Sau khi nhập xong các ứng viên, chương trình cho phép hiển thị danh sách ứng viên với đầy đủ thông tin đã có trong dataBase (Học viên lưu ý hãy sử dụng phương thức showMe đã viết code ở trên).	 
+III. Yêu Cầu 3 (Day 4, Day 5):
+1.	Học viên hãy phân biệt các đặc tính của List, Set, Map
+2.	Giả sử sau khi truy vấn danh sách ứng viên từ DataBase, có những record bị trùng CandidateID. Học viên hãy loại bỏ đi các record thứ 2 trở đi mà đã trùng CandidateID với record trước đó (Học viên hãy sử dụng kiểu dữ liệu có cấu trúc (List, Set, Map) phù hợp trong topic Collection đã học để xử lý yêu cầu này)
+3.	Học viên hãy sử dụng hàm sort được định nghĩa trong Collection để sắp xếp danh sách ứng viên tăng dần theo thuộc tính Candidate_type, nếu Candidate_type giống nhau thì ứng viên nào có năm sinh lớn hơn được đứng trước và hiển thị danh sách sau khi đã sắp xếp ra màn hình.
+
+IV. Yêu Cầu 4 (Day 5):
+1.	Học viên viết chức năng update thông tin của một ứng viên, yêu cầu học viên phải sử dụng thuộc tính CONCUR_UPDATABLE của ResultSet để update data thông qua resultSet (không được viết câu lệnh Update bằng SQL)
+2.	Học viên viết chức năng insert mới thông tin của một ứng viên, yêu cầu học viên phải sử dụng thuộc tính CONCUR_UPDATABLE của ResultSet để update data thông qua resultSet (không được viết câu lệnh Insert bằng SQL)
+3.	Học viên hãy phân biệt giống và khác nhau giữa Statement và PreparedStatement. Hãy sử dụng PreparedStatement thay thế cho toàn bộ Statement cho phần code mà học viên đã viết.
+4.	Học viên hãy giải thích ý nghĩa của cơ chế quản lý của Connection Pool.  Học viên hãy viết một sample function để quản lý connection pool cho ứng dụng này. (việc viết sample function là yêu cầu nâng cao, không bắt buộc đối với học viên)
+V. Yêu cầu 5 (Day 6):
+1.	Học viên hãy thực hành thành thạo Debugging với Eclipse, bao gồm các thao tác sau:
+a.	Debugging feature
+b.	Breakpoint
+c.	Debug Step into, Step over Step return
+d.	Watcher
+Sau phần thực hành này, từ hôm nay trở đi học viên mỗi khi debug code hãy sử dụng các thao tác ở trên, nhớ không được sử dụng lệnh  
+system.out.println
+
+2.	Học viên hãy thực hành theo hướng dẫn trong giáo trình, sử dụng thư viện log4j để thực hiện tính năng ghi ra log file cho ứng dụng ở trên, với yêu cầu:
+-	Ghi ra file InfoLog trong các lần user có connect và query đến DataBase (nôi dung của file log bao gồm: Ngày giờ ghi ra file, nội dung của câu lệnh truy vấn
+-	Ghi ra file ErrorLog khi có xảy ra exception (nội dung của file log bao gồm: Ngày giờ ghi ra file log, nội dung của exception)
+
+VI. Yêu cầu7 (Day 1 – Day 6)
+	Học viên hãy tuân thủ được đầy đủ coding convention của Java đã học.
+
+
+-  THE END  -
