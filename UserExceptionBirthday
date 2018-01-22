@@ -1,0 +1,15 @@
+package com.tamnt.day4;
+
+public class UserExceptionBirthday extends Exception{
+
+	@Override
+	public String getMessage() {
+		return "Birthday không hợp lệ!";
+	}
+
+	@Override
+	public void printStackTrace() {
+		System.out.println("Năm nhập vào không hợp lệ!");
+	}
+	
+}
