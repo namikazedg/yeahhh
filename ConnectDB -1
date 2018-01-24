@@ -16,6 +16,7 @@ public class ConnectDB {
 	static final String URL = "jdbc:sqlserver://localhost;databasename=javabasic";
 	static final String USER = "sa";
 	static final String PW = "Thanhtam96";
+	static final String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 	Connection con = null;
 	Statement stmt = null;
 	PreparedStatement pstmt = null;
@@ -30,7 +31,7 @@ public class ConnectDB {
 		return con;
 	}
 
-	public void insertCandidate() {
+	public void insertCandidate() throws UserExceptionBirthday, UserExceptionEmail {
 		try {
 			con = this.getConnect();
 			con.setAutoCommit(false);
@@ -40,29 +41,19 @@ public class ConnectDB {
 			String candidateId = new Scanner(System.in).nextLine();
 			System.out.print("input full name: ");
 			String fullName = new Scanner(System.in).nextLine();
-			boolean kt = true;
-			Date birthday;
-			do {
-				System.out.print("input birthday: ");
-				birthday = Date.valueOf(
-						new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date(new Scanner(System.in).nextLine())));
-				if(birthday.getYear()<0 || birthday.getYear()> new java.util.Date().getYear()){
-					try {
-						throw (new UserExceptionBirthday());
-					} catch (UserExceptionBirthday e) {
-						e.printStackTrace();
-					}
-				}else{
-					kt = false;
-				}
-			} while (kt);
-			
-			
-			
+			System.out.print("input birthday: ");
+			Date birthday = Date.valueOf(
+					new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date(new Scanner(System.in).nextLine())));
+			if (birthday.getYear() < 0 || birthday.getYear() > new java.util.Date().getYear()) {
+				throw new UserExceptionBirthday();
+			}
 			System.out.print("input phone: ");
 			String phone = new Scanner(System.in).nextLine();
 			System.out.print("input email: ");
 			String email = new Scanner(System.in).nextLine();
+			if (!email.matches(EMAIL_REGEX)) {
+				throw new UserExceptionEmail();
+			}
 			System.out.print("input candidate type: ");
 			int candidateType = new Scanner(System.in).nextInt();
 
@@ -90,6 +81,9 @@ public class ConnectDB {
 				System.out.print("input graduation date: ");
 				Date graduationDate = Date.valueOf(new SimpleDateFormat("yyyy-MM-dd")
 						.format(new java.util.Date(new Scanner(System.in).nextLine())));
+				if (graduationDate.getYear() < 0 || graduationDate.getYear() > new java.util.Date().getYear()) {
+					throw new UserExceptionBirthday();
+				}
 				System.out.print("input graduation rank:");
 				String graduationRank = new Scanner(System.in).nextLine();
 				System.out.print("input education: ");
@@ -132,6 +126,9 @@ public class ConnectDB {
 				System.out.print("input certificate date: ");
 				Date certificateDate = Date.valueOf(new SimpleDateFormat("yyyy-MM-dd")
 						.format(new java.util.Date(new Scanner(System.in).nextLine())));
+				if (certificateDate.getYear() < 0 || certificateDate.getYear() > new java.util.Date().getYear()) {
+					throw new UserExceptionBirthday();
+				}
 
 				pstmt = con.prepareStatement("insert into certificate values(?,?,?,?,?)");
 				pstmt.setString(1, candidateId);
@@ -160,6 +157,101 @@ public class ConnectDB {
 		System.out.println("Có " + Candidate.candidateCount + " ứng viên vừa nhập.");
 	}
 
+	public void inDanhSach() {
+		System.out.println("Danh sách ứng viên: \n====================");
+		con = this.getConnect();
+		try {
+			pstmt = con.prepareStatement("select * from candidate");
+			ResultSet rs1 = pstmt.executeQuery();
+			while (rs1.next()) {
+				String candidateID = rs1.getString("candidateID");
+				String fullName = rs1.getString("fullName");
+				Date birthday = rs1.getDate("birthday");
+				String phone = rs1.getString("phone");
+				String email = rs1.getString("email");
+				int candidateType = rs1.getInt("candidateType");
+				if (candidateType == 0) {
+					pstmt = con.prepareStatement("select * from experience where candidateid=?");
+					pstmt.setString(1, candidateID);
+					rs = pstmt.executeQuery();
+					Experience experience = null;
+					if (rs.next()) {
+						int expInYear = rs.getInt("expInYear");
+						String proSkill = rs.getString("proSkill");
+						experience = new Experience(candidateID, fullName, birthday, phone, email, expInYear, proSkill);
+					}
+					pstmt = con.prepareStatement("select * from certificate where candidateID=?");
+					pstmt.setString(1, candidateID);
+					rs = pstmt.executeQuery();
+					while (rs.next()) {
+						String certificateID = rs.getString("certificateid");
+						String certificateName = rs.getString("certificateName");
+						String certificateRank = rs.getString("certificateRank");
+						Date certificateDate = rs.getDate("certificateDate");
+						Certificate certificate = new Certificate(certificateID, certificateName, certificateRank,
+								certificateDate);
+						experience.addCertificate(certificate);
+					}
+					experience.showMe();
+				} else if (candidateType == 1) {
+					pstmt = con.prepareStatement("select * from fresher where candidateID=?");
+					pstmt.setString(1, candidateID);
+					rs = pstmt.executeQuery();
+					Fresher fresher = null;
+					if (rs.next()) {
+						Date graduationDate = rs.getDate("graduationDate");
+						String graduationRank = rs.getString("graduationRank");
+						String education = rs.getString("education");
+						fresher = new Fresher(candidateID, fullName, birthday, phone, email, graduationDate,
+								graduationRank, education);
+					}
+					pstmt = con.prepareStatement("select * from certificate where candidateID=?");
+					pstmt.setString(1, candidateID);
+					rs = pstmt.executeQuery();
+					while (rs.next()) {
+						String certificateID = rs.getString("certificateid");
+						String certificateName = rs.getString("certificateName");
+						String certificateRank = rs.getString("certificateRank");
+						Date certificateDate = rs.getDate("certificateDate");
+						Certificate certificate = new Certificate(certificateID, certificateName, certificateRank,
+								certificateDate);
+						fresher.addCertificate(certificate);
+					}
+					fresher.showMe();
+				} else {
+					pstmt = con.prepareStatement("select * from intern where candidateid=?");
+					pstmt.setString(1, candidateID);
+					rs = pstmt.executeQuery();
+					Intern intern = null;
+					if (rs.next()) {
+						String majors = rs.getString("majors");
+						int semester = rs.getInt("semester");
+						String universityName = rs.getString("universityName");
+						intern = new Intern(candidateID, fullName, birthday, phone, email, majors, semester,
+								universityName);
+					}
+					pstmt = con.prepareStatement("select * from certificate where candidateID=?");
+					pstmt.setString(1, candidateID);
+					rs = pstmt.executeQuery();
+					while (rs.next()) {
+						String certificateID = rs.getString("certificateid");
+						String certificateName = rs.getString("certificateName");
+						String certificateRank = rs.getString("certificateRank");
+						Date certificateDate = rs.getDate("certificateDate");
+						Certificate certificate = new Certificate(certificateID, certificateName, certificateRank,
+								certificateDate);
+						intern.addCertificate(certificate);
+					}
+					intern.showMe();
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Candidate.candidateCount = 0;
+	}
+
 	public static void main(String[] args) {
 
 		do {
@@ -167,18 +259,28 @@ public class ConnectDB {
 
 			System.out.println("\n1. Nhập ứng viên.");
 			System.out.println("2. Xem số lượng ứng viên vừa nhập.");
+			System.out.println("3. Xem danh sách ứng viên.");
 			System.out.println("Gõ exit để thoát.");
 
 			String c = new Scanner(System.in).nextLine();
 			switch (c) {
-				case "1":
+			case "1":
+				try {
 					connectDB.insertCandidate();
-					break;
-				case "2":
-					connectDB.soLuongUngVien();
-					break;
-				case "exit":
-					System.exit(1);
+				} catch (UserExceptionBirthday | UserExceptionEmail e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					System.out.println("The system has encountered an unexpected problem, sincerely sorry !!!");
+				}
+				break;
+			case "2":
+				connectDB.soLuongUngVien();
+				break;
+			case "3":
+				connectDB.inDanhSach();
+				break;
+			case "exit":
+				System.exit(1);
 			}
 		} while (true);
 	}
