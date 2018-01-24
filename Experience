@@ -1,4 +1,4 @@
-package com.tamnt.day5;
+package com.tamnt.day4;
 
 import java.sql.Date;
 
@@ -16,7 +16,11 @@ public class Experience extends Candidate {
 	
 	public void showMe(){
 		super.showInfo();
-		System.out.println("\nExp in year:"+this.expInYear+"\nPro skill: "+this.proSkill);
+		System.out.println("Exp in year:"+this.expInYear+"\nPro skill: "+this.proSkill);
+		for(Certificate i:arrCertificate){
+			System.out.println(i);
+		}
+		System.out.println("------------------");
 	}
 
 	public int getExpInYear() {
