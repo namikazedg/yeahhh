@@ -1,4 +1,4 @@
-package com.tamnt.day5;
+package com.tamnt.day4;
 
 import java.sql.Date;
 
@@ -20,7 +20,11 @@ public class Intern extends Candidate {
 	public void showMe() {
 		super.showInfo();
 		System.out.println(
-				"\nMajors: " + this.majors + "\nSemester: " + this.semester + "\nUniversity: " + this.university);
+				"Majors: " + this.majors + "\nSemester: " + this.semester + "\nUniversity: " + this.university);
+		for(Certificate i:arrCertificate){
+			System.out.println(i);
+		}
+		System.out.println("------------------");
 	}
 
 	public String getMajors() {
