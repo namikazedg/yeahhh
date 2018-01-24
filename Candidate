@@ -1,4 +1,4 @@
-package com.tamnt.day5;
+package com.tamnt.day4;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -13,6 +13,10 @@ public class Candidate {
 	protected static int candidateCount;
 	protected ArrayList<Certificate> arrCertificate;
 
+	public Candidate() {
+		this.candidateCount++;
+	}
+
 	public Candidate(String candidateID, String fullName, Date birthday, String phone, String email) {
 		super();
 		this.candidateID = candidateID;
@@ -25,7 +29,7 @@ public class Candidate {
 	}
 
 	public void showInfo() {
-		System.out.println("Candidate ID: " + this.candidateID + "\nFull name: " + this.fullName + "\nBirthday: "
+		System.out.println("\n\nCandidate ID: " + this.candidateID + "\nFull name: " + this.fullName + "\nBirthday: "
 				+ this.birthday + "\nPhone: " + this.phone + "\nEmail: " + this.email);
 	}
 
