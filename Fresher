@@ -1,4 +1,4 @@
-package com.tamnt.day5;
+package com.tamnt.day4;
 
 import java.sql.Date;
 
@@ -18,8 +18,12 @@ public class Fresher extends Candidate {
 
 	public void showMe() {
 		super.showInfo();
-		System.out.println("\nGraduation date: " + this.graduationDate + "\nGraduation rank: " + this.graduationRank
+		System.out.println("Graduation date: " + this.graduationDate + "\nGraduation rank: " + this.graduationRank
 				+ "\nEducation: " + this.education);
+		for(Certificate i:arrCertificate){
+			System.out.println(i);
+		}
+		System.out.println("------------------");
 	}
 
 	public Date getGraduationDate() {
